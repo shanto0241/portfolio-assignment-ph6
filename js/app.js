@@ -22,7 +22,6 @@ const displayCategories = (categoryLists) => {
   categoryList.forEach((element) => {
     const category_id = element.category_id;
     const category_name = element.category_name;
-    console.log(typeof category_id);
     const div = document.createElement("div");
     div.innerHTML = `<h1 onClick="categoryNewsList('${category_id}','${category_name}')" class="hover:bg-cyan-900 hover:text-white tracking-wide px-4 py-2 rounded transition duration-300 ease-out hover:ease-in">${element.category_name}</h1>`;
     categoryId.appendChild(div);
@@ -43,7 +42,6 @@ const mainLoader = (mainLoading) => {
 // Call Category List by Category Id
 const categoryNewsList = async (category_id, category_name) => {
   newsLoader(true);
-  console.log(category_id, category_name);
   const url = `https://openapi.programming-hero.com/api/news/category/${category_id}`;
   const res = await fetch(url);
   const data = await res.json();
@@ -69,7 +67,6 @@ const displayNews = (newsList, category_name) => {
       newsBox.classList.add("flex");
       newsBox.classList.add("gap-4");
       newsBox.classList.add("mb-4");
-      console.log(element);
       newsBox.innerHTML = `<div class="card-image w-1/4">
 					<img class=" shadow-xl" src="${element.thumbnail_url}" alt="">
 				</div>
@@ -101,8 +98,10 @@ const displayNews = (newsList, category_name) => {
 							<img src="./assets/star.svg" alt="" class="w-5">
 							<img src="./assets/star.svg" alt="" class="w-5">
 						</div>
-						<button class="text-cyan-800 hover:text-blue-900 text-md px-4 rounded">Read more...</button>
-					</div>
+						<label onClick="newsDetails('${
+              element._id
+            }')" for="my-modal" class="text-cyan-800 hover:text-blue-900 text-md px-4 rounded modal-button">open modal</label>
+						</div>
 				</div>`;
       newsContainer.appendChild(newsBox);
     });
@@ -119,5 +118,22 @@ const newsLoader = (isNewsLoader) => {
   } else {
     newsLoader.classList.add("hidden");
   }
+};
+
+// get news detail list
+const newsDetails = async (news_id) => {
+  console.log(news_id);
+  const url = `https://openapi.programming-hero.com/api/news/${news_id}`;
+  const res = await fetch(url);
+  const data = await res.json();
+
+  console.log(data, "alsdjkf");
+  showNewsDetailsInModal(data.data);
+};
+
+// show News Details in modal
+const showNewsDetailsInModal = (newsDetails) => {
+  console.log(newsDetails, "alsdjkf");
+  const showModal = document.getElementById("news_details_modal");
 };
 callCategoriesApi();
