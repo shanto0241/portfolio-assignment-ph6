@@ -13,13 +13,18 @@ const callCategoriesApi = async () => {
 // Display Category List
 const displayCategories = (categoryLists) => {
   const categoryId = document.getElementById("categories");
-  console.log(categoryLists, "lasdkj");
+  //   console.log(categoryLists, "lasdkj");
   const categoryList = categoryLists;
-  categoryNewsList(parseInt(categoryList[categoryList.length - 1].category_id));
+  categoryNewsList(
+    categoryList[categoryList.length - 1].category_id,
+    categoryList[categoryList.length - 1].category_name
+  );
   categoryList.forEach((element) => {
     const category_id = element.category_id;
+    const category_name = element.category_name;
+    console.log(typeof category_id);
     const div = document.createElement("div");
-    div.innerHTML = `<h1 onClick="categoryNewsList(${category_id})" class="hover:bg-cyan-900 hover:text-white tracking-wide px-4 py-2 rounded transition duration-300 ease-out hover:ease-in">${element.category_name}</h1>`;
+    div.innerHTML = `<h1 onClick="categoryNewsList('${category_id}','${category_name}')" class="hover:bg-cyan-900 hover:text-white tracking-wide px-4 py-2 rounded transition duration-300 ease-out hover:ease-in">${element.category_name}</h1>`;
     categoryId.appendChild(div);
   });
   mainLoader(true);
@@ -36,35 +41,44 @@ const mainLoader = (mainLoading) => {
 };
 
 // Call Category List by Category Id
-const categoryNewsList = async (category_id) => {
+const categoryNewsList = async (category_id, category_name) => {
   newsLoader(true);
-  console.log(category_id);
-  const url = `https://openapi.programming-hero.com/api/news/category/0${category_id}`;
+  console.log(category_id, category_name);
+  const url = `https://openapi.programming-hero.com/api/news/category/${category_id}`;
   const res = await fetch(url);
   const data = await res.json();
-  console.log(data);
-  displayNews(data.data);
+  //   console.log(data, category_name);
+  displayNews(data.data, category_name);
 };
 
 // Display Category List
-const displayNews = (newsList) => {
+const displayNews = (newsList, category_name) => {
   const newsContainer = document.getElementById("display-news");
+  const counter = document.getElementById("counter");
   newsContainer.innerHTML = "";
-  newsList.forEach((element) => {
-    const newsBox = document.createElement("div");
-    newsContainer.appendChild(newsBox);
-    newsBox.classList.add("card-item");
-    newsBox.classList.add("flex");
-    newsBox.classList.add("gap-4");
-    newsBox.classList.add("mb-4");
-    console.log(element);
-    newsBox.innerHTML = `<div class="card-image w-1/4">
+  if (newsList.length < 1) {
+    newsContainer.innerHTML = `<p> News Not Found </p>`;
+  } else {
+    counter.innerHTML = `<p> ${
+      newsList.length - 1
+    } Items found in ${category_name} </p>`;
+    newsList.forEach((element) => {
+      const newsBox = document.createElement("div");
+      newsContainer.appendChild(newsBox);
+      newsBox.classList.add("card-item");
+      newsBox.classList.add("flex");
+      newsBox.classList.add("gap-4");
+      newsBox.classList.add("mb-4");
+      console.log(element);
+      newsBox.innerHTML = `<div class="card-image w-1/4">
 					<img class=" shadow-xl" src="${element.thumbnail_url}" alt="">
 				</div>
 				<div class="card-news w-3/4">
 					<h1 class="headlines text-2xl font-semibold text-slate-800">
 					${element.title}</h1>
-					<p class="text-md text-gray-600 py-2">${element.details}
+					<p class="text-md text-gray-600 py-2">${
+            element.details.substring(0, 300) + "..."
+          }
 					</p>
 					<div class="news-details justify-between flex gap-2">
 						<div class="author flex gap-2 pt-4 items-center">
@@ -90,8 +104,9 @@ const displayNews = (newsList) => {
 						<button class="text-cyan-800 hover:text-blue-900 text-md px-4 rounded">Read more...</button>
 					</div>
 				</div>`;
-    newsContainer.appendChild(newsBox);
-  });
+      newsContainer.appendChild(newsBox);
+    });
+  }
   newsLoader(false);
 };
 
