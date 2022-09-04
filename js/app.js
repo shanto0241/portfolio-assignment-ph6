@@ -79,22 +79,22 @@ const displayNews = (newsList, category_name) => {
       newsBox.classList.add("bg-slate-100");
       newsBox.classList.add("p-4");
       newsBox.classList.add("rounded-lg");
-      newsBox.classList.add("flex");
+      newsBox.classList.add("md:flex");
       newsBox.classList.add("gap-4");
       newsBox.classList.add("mb-10");
-      newsBox.innerHTML = `<div class=" w-1/4 ">
+      newsBox.innerHTML = `<div class="w-1/4">
 					<img class=" shadow-xl rounded-lg" src="${element.thumbnail_url}" alt="">
 				</div>
 				<div class="card-news w-3/4 flex  justify-center  items-center ">
 					<div>
-					<h1 class="headlines text-2xl font-semibold text-slate-800">
+					<h1 class="headlines md:text-2xl font-semibold text-slate-800">
 					${element.title}</h1>
 					<p class="text-md text-gray-600 py-2">${
             element.details.substring(0, 300) + "..."
           }
 					</p>
-					<div class="news-details justify-between items-center flex gap-2">
-						<div class="author flex gap-2 pt-4 items-center">
+					<div class="news-details justify-between items-center md:flex gap-2">
+						<div class="author flex gap-2 items-center">
 							<div class="w-9">
 								<img src="${element.author.img}" alt="">
 							</div>
@@ -107,7 +107,7 @@ const displayNews = (newsList, category_name) => {
 							<img class="w-5" src="./assets/eye.svg" alt="">
 							<p class="text-md font-bold text-gray-500">${element.total_view}</p>
 						</div>
-						<div class="reviews flex gap-2 justify-evenly">
+						<div class="reviews flex gap-2 md:justify-evenly">
 							<img src="./assets/star.svg" alt="" class="w-5">
 							<img src="./assets/star.svg" alt="" class="w-5">
 							<img src="./assets/star.svg" alt="" class="w-5">
@@ -175,7 +175,7 @@ const showNewsDetailsInModal = (newsDetails) => {
 					${element.title}</h1>
 					<p class="text-md text-gray-600 py-2">${element.details}
 					</p>
-					<div class="news-details justify-between flex gap-2">
+					<div class="news-details justify-between md:flex gap-2">
 						<div class="author flex gap-2 pt-4 items-center">
 							<div class="w-9">
 								<img src="${element.author.img}" alt="">
@@ -189,7 +189,7 @@ const showNewsDetailsInModal = (newsDetails) => {
 							<img class="w-5" src="./assets/eye.svg" alt="">
 							<p class="text-md font-bold text-gray-500">${element.total_view}</p>
 						</div>
-						<div class="reviews flex gap-2 justify-evenly">
+						<div class="reviews flex gap-2 md:justify-evenly">
 							<img src="./assets/star.svg" alt="" class="w-5">
 							<img src="./assets/star.svg" alt="" class="w-5">
 							<img src="./assets/star.svg" alt="" class="w-5">
