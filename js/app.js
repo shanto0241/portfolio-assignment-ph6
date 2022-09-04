@@ -29,7 +29,7 @@ const displayCategories = (categoryLists) => {
     const category_id = element.category_id;
     const category_name = element.category_name;
     const div = document.createElement("div");
-    div.innerHTML = `<h1 onClick="categoryNewsList('${category_id}','${category_name}')" class="hover:bg-cyan-900 hover:text-white tracking-wide px-4 py-2 rounded transition duration-300 ease-out hover:ease-in">${element.category_name}</h1>`;
+    div.innerHTML = `<h1 onClick="categoryNewsList('${category_id}','${category_name}')" class="hover:bg-cyan-900 hover:text-white tracking-wide px-4 py-2 rounded transition duration-300 ease-out hover:ease-in cursor-pointer">${element.category_name}</h1>`;
     categoryId.appendChild(div);
   });
   mainLoader(false);
@@ -76,12 +76,14 @@ const displayNews = (newsList, category_name) => {
     newsList.forEach((element) => {
       const newsBox = document.createElement("div");
       newsContainer.appendChild(newsBox);
-      newsBox.classList.add("card-item");
+      newsBox.classList.add("bg-slate-100");
+      newsBox.classList.add("p-4");
+      newsBox.classList.add("rounded-lg");
       newsBox.classList.add("flex");
       newsBox.classList.add("gap-4");
-      newsBox.classList.add("mb-4");
-      newsBox.innerHTML = `<div class="card-image w-1/4">
-					<img class=" shadow-xl" src="${element.thumbnail_url}" alt="">
+      newsBox.classList.add("mb-10");
+      newsBox.innerHTML = `<div class=" w-1/4 ">
+					<img class=" shadow-xl rounded-lg" src="${element.thumbnail_url}" alt="">
 				</div>
 				<div class="card-news w-3/4 flex  justify-center  items-center ">
 					<div>
