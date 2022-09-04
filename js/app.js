@@ -68,7 +68,7 @@ const displayNews = (newsList, category_name) => {
   // sortign newslis with max views
   newsList.sort((a, b) => parseFloat(b.total_view) - parseFloat(a.total_view));
   if (newsList.length < 1) {
-    newsContainer.innerHTML = `<p> News Not Found </p>`;
+    newsContainer.innerHTML = `<p class="text-gray-800 bg-gray-100 p-4 rounded"> News Not Found </p>`;
   } else {
     counter.innerHTML = `<p> ${
       newsList.length - 1
@@ -77,6 +77,9 @@ const displayNews = (newsList, category_name) => {
       const newsBox = document.createElement("div");
       newsContainer.appendChild(newsBox);
       newsBox.classList.add("bg-slate-100");
+      newsBox.classList.add("border-2");
+      newsBox.classList.add("border-slate-200");
+      newsBox.classList.add("hover:border-cyan-800");
       newsBox.classList.add("p-4");
       newsBox.classList.add("rounded-lg");
       newsBox.classList.add("md:flex");
